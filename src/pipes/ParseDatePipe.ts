@@ -11,7 +11,11 @@ export class ParseDatePipe implements PipeTransform<string> {
 
             throw new BadRequestException('invalid date');
 
-        } else return date;
+        } else {
+
+            return date;
+
+        }
 
     }
 
