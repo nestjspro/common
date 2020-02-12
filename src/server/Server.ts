@@ -39,8 +39,9 @@ export class Server {
 
         SwaggerModule.setup(swagger.path, app, SwaggerModule.createDocument(app, documentBuilder.build()));
 
-        app.useGlobalPipes(new ValidationPipe({ transform: true }));
+        app.useGlobalPipes(new ValidationPipe({ transform: true, forbidUnknownValues: true }));
         app.useGlobalFilters(new GlobalExceptionsFilter());
+
         app.disable('x-powered-by');
 
         await app.listen(port);
