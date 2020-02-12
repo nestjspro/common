@@ -45,7 +45,7 @@ export class Server {
 
         await app.listen(port);
 
-        console.log(`${ new Date().toISOString() } ${ name } server started on port ${ process.env.LOCAL_PORT || 80 }`);
+        console.log(`${ new Date().toISOString() } ${ name } server started on port ${ port }`);
 
         return app;
 
