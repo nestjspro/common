@@ -3,6 +3,7 @@ import { NestFactory }                    from '@nestjs/core';
 import { NestExpressApplication }         from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv                        from 'dotenv';
+import * as fs                            from 'fs';
 import { GlobalExceptionsFilter }         from '../exceptions/GlobalExceptionsFilter';
 import { SwaggerSettings }                from '../swagger/SwaggerSettings';
 
@@ -49,6 +50,26 @@ export class Server {
         console.log(`${ new Date().toISOString() } ${ name } server started on port ${ port }`);
 
         return app;
+
+    }
+
+    public static getEnvironment(): 'local' | 'docker' | 'k8' {
+
+        if (fs.existsSync('/proc/1/groups')) {
+
+            const contents = fs.readFileSync('/proc/1/cgroups');
+
+            if (contents.indexOf('docker') > -1) {
+
+                return 'docker';
+
+            }
+
+            return 'k8';
+
+        }
+
+        return 'local';
 
     }
 
