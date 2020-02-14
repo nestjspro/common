@@ -55,7 +55,7 @@ export class Server {
 
     public static getEnvironment(): 'local' | 'docker' | 'k8' {
 
-        if (fs.existsSync('/proc/1/groups')) {
+        if (fs.existsSync('/proc/1/cgroups')) {
 
             const contents = fs.readFileSync('/proc/1/cgroups');
 
