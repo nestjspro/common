@@ -14,7 +14,7 @@ export class DBUtilities {
             username: process.env.DB_USERNAME || 'root',
             password: process.env.DB_PASSWORD || 'mysql',
             database: process.env.DB_NAME || 'nestjs',
-            synchronize: process.env.DB_SYNCHRONIZE === 'true',
+            synchronize: dbOptions.synchronize || process.env.DB_SYNCHRONIZE === 'true',
             keepConnectionAlive: true,
             entities: dbOptions.entities
 
