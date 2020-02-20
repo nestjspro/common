@@ -38,6 +38,10 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
             response.status(exception.status).json(exception);
 
+        } else if (clazz === 'ResourceAlreadyExistsException') {
+
+            response.status(exception.status).json(exception[ 'message' ]);
+
         } else if (clazz === 'QueryFailedError') {
 
             if (exception.message.indexOf('duplicate key') >= -1) {
