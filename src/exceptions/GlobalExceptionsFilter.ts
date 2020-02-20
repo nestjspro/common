@@ -26,6 +26,10 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
             });
 
+        } else if (clazz === 'BadRequestException') {
+
+            response.status(400).json(exception[ 'response' ]);
+
         } else if (clazz === 'ResourceNotFoundException') {
 
             response.status(exception.status).json(exception);
