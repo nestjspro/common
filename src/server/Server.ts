@@ -1,17 +1,17 @@
-import { ValidationPipe }                 from '@nestjs/common';
-import { NestFactory }                    from '@nestjs/core';
-import { NestExpressApplication }         from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as dotenv                        from 'dotenv';
-import * as fs                            from 'fs';
-import { GlobalExceptionsFilter }         from '../exceptions/GlobalExceptionsFilter';
-import { SwaggerSettings }                from '../swagger/SwaggerSettings';
+import { NestInterceptor, ParseUUIDPipe, ValidationPipe } from '@nestjs/common';
+import { NestFactory }                                    from '@nestjs/core';
+import { NestExpressApplication }                         from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule }                 from '@nestjs/swagger';
+import * as dotenv                                        from 'dotenv';
+import * as fs                                            from 'fs';
+import { GlobalExceptionsFilter }                         from '../exceptions/GlobalExceptionsFilter';
+import { SwaggerSettings }                                from '../swagger/SwaggerSettings';
 
 dotenv.config();
 
 export class Server {
 
-    public static async bootstrap(module: any, name: string, port: number, swagger: SwaggerSettings, origins: Array<string>): Promise<NestExpressApplication> {
+    public static async bootstrap(module: any, name: string, port: number, swagger: SwaggerSettings, origins: Array<string>, interceptors: Array<NestInterceptor>): Promise<NestExpressApplication> {
 
         const app = await NestFactory.create<NestExpressApplication>(module, {
 
@@ -40,7 +40,11 @@ export class Server {
 
         SwaggerModule.setup(swagger.path, app, SwaggerModule.createDocument(app, documentBuilder.build()));
 
-        app.useGlobalPipes(new ValidationPipe({ transform: true, forbidUnknownValues: true }));
+        app.useGlobalInterceptors(...interceptors);
+        app.useGlobalPipes(new ValidationPipe({
+            transform: true,
+            forbidUnknownValues: true
+        }), new ParseUUIDPipe({ version: '4' }));
         app.useGlobalFilters(new GlobalExceptionsFilter());
 
         app.disable('x-powered-by');
