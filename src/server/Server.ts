@@ -1,11 +1,11 @@
-import { NestInterceptor, ParseUUIDPipe, ValidationPipe } from '@nestjs/common';
-import { NestFactory }                                    from '@nestjs/core';
-import { NestExpressApplication }                         from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule }                 from '@nestjs/swagger';
-import * as dotenv                                        from 'dotenv';
-import * as fs                                            from 'fs';
-import { GlobalExceptionsFilter }                         from '../exceptions/GlobalExceptionsFilter';
-import { SwaggerSettings }                                from '../swagger/SwaggerSettings';
+import { NestInterceptor, ValidationPipe } from '@nestjs/common';
+import { NestFactory }                     from '@nestjs/core';
+import { NestExpressApplication }          from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule }  from '@nestjs/swagger';
+import * as dotenv                         from 'dotenv';
+import * as fs                             from 'fs';
+import { GlobalExceptionsFilter }          from '../exceptions/GlobalExceptionsFilter';
+import { SwaggerSettings }                 from '../swagger/SwaggerSettings';
 
 dotenv.config();
 
@@ -41,14 +41,8 @@ export class Server {
         SwaggerModule.setup(swagger.path, app, SwaggerModule.createDocument(app, documentBuilder.build()));
 
         app.useGlobalInterceptors(...interceptors);
-        app.useGlobalPipes(new ValidationPipe({
-            transform: true,
-            forbidUnknownValues: true
-        }));
-
-        app.useGlobalPipes(new ParseUUIDPipe({ version: '4' }));
+        app.useGlobalPipes(new ValidationPipe({ transform: true, forbidUnknownValues: true }));
         app.useGlobalFilters(new GlobalExceptionsFilter());
-
         app.disable('x-powered-by');
 
         await app.listen(port);
