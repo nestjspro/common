@@ -44,7 +44,9 @@ export class Server {
         app.useGlobalPipes(new ValidationPipe({
             transform: true,
             forbidUnknownValues: true
-        }), new ParseUUIDPipe({ version: '4' }));
+        }));
+
+        app.useGlobalPipes(new ParseUUIDPipe({ version: '4' }));
         app.useGlobalFilters(new GlobalExceptionsFilter());
 
         app.disable('x-powered-by');
