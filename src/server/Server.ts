@@ -1,11 +1,11 @@
-import { NestInterceptor, ParseUUIDPipe, ValidationPipe } from '@nestjs/common';
-import { NestFactory }                                    from '@nestjs/core';
-import { NestExpressApplication }                         from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule }                 from '@nestjs/swagger';
-import * as dotenv                                        from 'dotenv';
-import * as fs                                            from 'fs';
-import { GlobalExceptionsFilter }                         from '../exceptions/GlobalExceptionsFilter';
-import { SwaggerSettings }                                from '../swagger/SwaggerSettings';
+import { NestInterceptor, ValidationPipe } from '@nestjs/common';
+import { NestFactory }                     from '@nestjs/core';
+import { NestExpressApplication }          from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule }  from '@nestjs/swagger';
+import * as dotenv                         from 'dotenv';
+import * as fs                             from 'fs';
+import { GlobalExceptionsFilter }          from '../exceptions/GlobalExceptionsFilter';
+import { SwaggerSettings }                 from '../swagger/SwaggerSettings';
 
 dotenv.config();
 
@@ -48,7 +48,7 @@ export class Server {
         app.useGlobalPipes(new ValidationPipe({
             transform: true,
             forbidUnknownValues: true
-        }), new ParseUUIDPipe({ version: '4' }));
+        }));
         app.useGlobalFilters(new GlobalExceptionsFilter());
         app.disable('x-powered-by');
 
