@@ -1,11 +1,18 @@
 import { AmqpConnection }  from '@nestjs-plus/rabbitmq';
 import { Injectable }      from '@nestjs/common';
+import { Options }         from 'amqplib';
 import { MessagingMethod } from './MessagingMethod';
 
 @Injectable()
 export class MessagingClient {
 
     public constructor(private readonly ampqConnection: AmqpConnection) {
+
+    }
+
+    public publish(exchange: string, routingKey: string, payload: any, options?: Options.Publish): void {
+
+        this.ampqConnection.publish(exchange, routingKey, payload, options);
 
     }
 
