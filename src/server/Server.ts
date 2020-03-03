@@ -39,7 +39,7 @@ export class Server {
 
         });
 
-        SwaggerModule.setup(swagger.path, app, SwaggerModule.createDocument(app, documentBuilder.build()));
+        SwaggerModule.setup(swagger.path, app, SwaggerModule.createDocument(app, documentBuilder.build(), swagger.documentOptions), swagger.customOptions);
 
         if (interceptors) {
 

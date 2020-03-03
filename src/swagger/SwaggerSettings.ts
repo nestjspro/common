@@ -1,3 +1,5 @@
+import { SwaggerCustomOptions, SwaggerDocumentOptions } from '@nestjs/swagger';
+
 export class SwaggerSettings {
 
     public path: string;
@@ -11,6 +13,8 @@ export class SwaggerSettings {
     public docsDescription: string;
     public docsUrl: string;
     public serverUrls: Array<string>;
+    public documentOptions?: SwaggerDocumentOptions;
+    public customOptions?: SwaggerCustomOptions;
 
 }
 
