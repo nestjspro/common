@@ -6,7 +6,7 @@ import { MessagingMethod } from './MessagingMethod';
 @Injectable()
 export class MessagingClient {
 
-    public constructor(private readonly ampqConnection: AmqpConnection) {
+    public constructor(public readonly ampqConnection: AmqpConnection) {
 
     }
 
@@ -16,7 +16,7 @@ export class MessagingClient {
 
     }
 
-    public rpc<T>(exchange: string, routingKey: string, payload: MessagingMethod, timeout: number = 10000): Promise<T> {
+    public rpc<T>(exchange: string, routingKey: string, payload: MessagingMethod | any, timeout: number = 10000): Promise<T> {
 
         return this.ampqConnection.request({
 

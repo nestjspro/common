@@ -46,6 +46,7 @@ export class Server {
             app.useGlobalInterceptors(...interceptors);
 
         }
+
         app.useGlobalPipes(new ValidationPipe({
             transform: true,
             forbidUnknownValues: true
