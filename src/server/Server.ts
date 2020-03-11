@@ -3,6 +3,7 @@ import { NestFactory }                     from '@nestjs/core';
 import { NestExpressApplication }          from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule }  from '@nestjs/swagger';
 import * as bodyParser                     from 'body-parser';
+import * as compression                    from 'compression';
 import * as dotenv                         from 'dotenv';
 import * as fs                             from 'fs';
 import { GlobalExceptionsFilter }          from '../exceptions/GlobalExceptionsFilter';
@@ -52,6 +53,8 @@ export class Server {
             forbidUnknownValues: true
         }));
         app.useGlobalFilters(new GlobalExceptionsFilter());
+
+        app.use(compression());
         app.use(bodyParser.json({ limit: '50mb' }));
         app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
         app.disable('x-powered-by');
