@@ -52,6 +52,8 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
         } else {
 
+            console.log(exception);
+
             response.status(500).json('something went wrong! our support team has been notified. please try again later :(');
 
         }
