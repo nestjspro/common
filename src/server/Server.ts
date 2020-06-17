@@ -7,6 +7,7 @@ import * as compression                    from 'compression';
 import * as dotenv                         from 'dotenv';
 import * as fs                             from 'fs';
 import { SwaggerSettings }                 from '../swagger/SwaggerSettings';
+import { GlobalExceptionsFilter } from '../exceptions/GlobalExceptionsFilter';
 
 dotenv.config();
 
@@ -51,7 +52,8 @@ export class Server {
             transform: true,
             forbidUnknownValues: true
         }));
-        // app.useGlobalFilters(new GlobalExceptionsFilter());
+
+        app.useGlobalFilters(new GlobalExceptionsFilter());
 
         app.use(compression());
         app.use(bodyParser.json({ limit: '50mb' }));
