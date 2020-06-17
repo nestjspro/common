@@ -22,7 +22,6 @@
         "amqp-connection-manager": "^3.2.0",
         "amqplib": "^0.5.5",
         "body-parser": "^1.19.0",
-        "class-validator": "^0.11.0",
         "compression": "^1.7.4",
         "dotenv": "^8.2.0",
         "rxjs": "^6.5.4",
