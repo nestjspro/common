@@ -40,7 +40,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
         } else if (clazz === 'ResourceAlreadyExistsException') {
 
-            response.status(exception.status).json(exception[ 'message' ]);
+            response.status(exception.status).json(exception);
 
         } else if (clazz === 'QueryFailedError') {
 
