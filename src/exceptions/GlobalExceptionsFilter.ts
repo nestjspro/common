@@ -22,7 +22,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
                 statusCode: exception.status,
                 timestamp: new Date().toISOString(),
                 path: request.url,
-                message: exception.message.message
+                message: exception.message
 
             });
 
