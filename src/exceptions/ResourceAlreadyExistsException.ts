@@ -6,7 +6,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
  */
 export class ResourceAlreadyExistsException extends HttpException {
 
-    public constructor(message: any) {
+    public constructor(message?: any) {
 
         super(message, HttpStatus.CONFLICT);
 
