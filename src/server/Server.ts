@@ -8,6 +8,7 @@ import * as dotenv                         from 'dotenv';
 import * as fs                             from 'fs';
 import { SwaggerSettings }                 from '../swagger/SwaggerSettings';
 import { GlobalExceptionsFilter } from '../exceptions/GlobalExceptionsFilter';
+import * as cookieParser from 'cookie-parser'
 
 dotenv.config();
 
@@ -54,10 +55,11 @@ export class Server {
         }));
 
         app.useGlobalFilters(new GlobalExceptionsFilter());
-
+        app.use(cookieParser());
         app.use(compression());
         app.use(bodyParser.json({ limit: '50mb' }));
         app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
         app.disable('x-powered-by');
 
         await app.listen(port);
