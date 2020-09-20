@@ -4,7 +4,7 @@ import { Options }         from 'amqplib';
 import { MessagingMethod } from './MessagingMethod';
 
 @Injectable()
-export class MessagingClient<T> {
+export class MessagingClient {
 
     public constructor(public readonly ampqConnection: AmqpConnection) {
 
