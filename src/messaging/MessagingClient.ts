@@ -4,13 +4,13 @@ import { Options }         from 'amqplib';
 import { MessagingMethod } from './MessagingMethod';
 
 @Injectable()
-export class MessagingClient {
+export class MessagingClient<T> {
 
     public constructor(public readonly ampqConnection: AmqpConnection) {
 
     }
 
-    public publish(exchange: string, routingKey: string, payload: any, options?: Options.Publish): void {
+    public publish<T>(exchange: string, routingKey: string, payload: T, options?: Options.Publish): void {
 
         this.ampqConnection.publish(exchange, routingKey, payload, options);
 
