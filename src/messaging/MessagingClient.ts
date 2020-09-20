@@ -16,7 +16,7 @@ export class MessagingClient<T> {
 
     }
 
-    public rpc<T>(exchange: string, routingKey: string, payload: MessagingMethod | any, timeout: number = 10000): Promise<T> {
+    public rpc<S,T>(exchange: string, routingKey: string, payload: S, timeout: number = 10000): Promise<T> {
 
         return this.ampqConnection.request({
 
