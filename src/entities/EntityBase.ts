@@ -3,12 +3,12 @@ import { CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'type
 export class EntityBase {
 
     @PrimaryGeneratedColumn('uuid')
-    public id: string;
+    public id?: string;
 
     @CreateDateColumn()
-    public stampCreated: Date;
+    public stampCreated?: Date;
 
     @UpdateDateColumn()
-    public stampUpdated: Date;
+    public stampUpdated?: Date;
 
 }
