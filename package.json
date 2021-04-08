@@ -1,6 +1,6 @@
 {
     "name": "@nestjs.pro/common",
-    "version": "1.0.78",
+    "version": "1.0.79",
     "main": "dist/exceptions/ResourceAlreadyExistsException.js",
     "types": "dist/exceptions/ResourceAlreadyExistsException.d.ts",
     "license": "MIT",
