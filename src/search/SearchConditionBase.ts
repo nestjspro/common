@@ -22,6 +22,8 @@ export class SearchConditionBase {
         if (this.operator === 'equals') {
 
             condition = `${ this.column } = :value`;
+            parameters = { value: this.value };
+            
 
         } else if (this.operator === 'equals') {
 
