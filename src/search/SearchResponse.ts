@@ -8,7 +8,8 @@ export const SearchResponse = (options: SearchResponseOptions) => applyDecorator
     ApiQuery({
         name: 'condition',
         isArray: true,
-        type: SearchCondition
+        type: SearchCondition,
+        explode: true
     }),
     ApiQuery({ name: 'limit', type: Number }),
     ApiQuery({ name: 'page', type: Number }),
