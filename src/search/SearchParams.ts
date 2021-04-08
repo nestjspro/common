@@ -7,11 +7,21 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
 
     if (operator) {
 
-        if (condition.length !== operator.length) {
+        if (Array.isArray(operator)) {
 
-            throw new BadRequestException('conditions and operators do not have the same count');
+            if (condition.length > operator.length - 1) {
+
+                throw new BadRequestException('conditions and operators do not have the same count');
+
+            }
 
         }
+
+    }
+
+    if (condition.length > 1 && !operator) {
+
+        throw new BadRequestException('missing at least one operator');
 
     }
 
