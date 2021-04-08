@@ -1,5 +1,8 @@
-import { Repository }                from 'typeorm';
+import { Repository } from 'typeorm';
 import { ResourceNotFoundException } from '../exceptions/ResourceNotFoundException';
+import { SearchResult } from '../search/SearchResult';
+import { Search } from '../search/Search';
+import { SearchOperator } from '../search/SearchOperator';
 
 /**
  * Common repository methods.
@@ -72,6 +75,52 @@ export class BaseRepository<T> extends Repository<T> {
     public findByFields(where: { [ key: string ]: string | number }, relations?: Array<string>): Promise<Array<T>> {
 
         return this.find({ where, relations });
+
+    }
+
+
+    public async search(search: Search<T>, print = false): Promise<SearchResult<T>> {
+
+        const qb = this
+            .createQueryBuilder()
+            .limit(search.options.limit)
+            .offset((search.options.page - 1) * search.options.limit)
+            .orderBy(search.options.sort.column, search.options.sort.order);
+
+        for (let i = 0; i < search.conditions.length; i++) {
+
+            if (search.conditions[ i ].operator === SearchOperator.AND) {
+
+                qb.andWhere(search.conditions[ i ].condition, search.conditions[ i ].parameters);
+
+            } else {
+
+                qb.where(search.conditions[ i ].condition, search.conditions[ i ].parameters);
+
+            }
+
+        }
+
+        if (print) {
+
+            console.log(qb.getSql());
+
+        }
+
+        const [ rows, count ] = await qb.getManyAndCount();
+
+        return {
+
+            results: rows,
+
+            meta: {
+
+                total: count,
+                pages: Math.ceil(count / rows.length) || 0
+
+            }
+
+        };
 
     }
 
