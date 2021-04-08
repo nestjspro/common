@@ -1,8 +1,12 @@
 import { PaginationMeta } from './PaginationMeta';
+import { ApiProperty } from '@nestjs/swagger';
 
-export interface SearchResult<T> {
+export class SearchResult<T> {
 
-    results: Array<T>;
-    meta: PaginationMeta;
+    @ApiProperty({ isArray: true })
+    public results: Array<T>;
+
+    @ApiProperty({ type: PaginationMeta })
+    public meta: PaginationMeta;
 
 }

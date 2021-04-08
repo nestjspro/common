@@ -1,6 +1,11 @@
-export interface PaginationMeta {
+import { ApiProperty } from '@nestjs/swagger';
 
-    total: number;
-    pages: number;
+export class PaginationMeta {
+
+    @ApiProperty()
+    public total: number;
+
+    @ApiProperty()
+    public pages: number;
 
 }

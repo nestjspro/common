@@ -1,9 +1,14 @@
 import { PaginationSortDirection } from './PaginationSort';
+import { ApiProperty } from '@nestjs/swagger';
 
-export interface PaginationOptions {
+export class PaginationOptions {
 
-    limit?: number;
-    page?: number;
-    sort?: { [ column: string ]: PaginationSortDirection };
+    @ApiProperty()
+    public limit?: number;
+
+    public page?: number;
+
+    @ApiProperty()
+    public sort?: { [ column: string ]: PaginationSortDirection };
 
 }
