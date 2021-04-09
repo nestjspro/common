@@ -3,9 +3,15 @@ import { SearchCondition } from './SearchCondition';
 
 export const SearchParams: () => ParameterDecorator = createParamDecorator((data, req) => {
 
-    const { limit = 20, page = 1, sort, direction, condition, parameter, operator } = req.query;
+    let { limit = 20, page = 1, sort, direction, condition, parameter, operator } = req.query;
 
     const conditions: Array<SearchCondition> = [];
+    
+    if (!Array.isArray(operator)) {
+
+        operator = [ operator ];
+
+    }
 
     if (Array.isArray(condition)) {
 
@@ -15,13 +21,9 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
 
         }
 
-        if (Array.isArray(operator)) {
+        if (condition.length > operator.length - 1) {
 
-            if (condition.length > operator.length - 1) {
-
-                throw new BadRequestException('conditions and operators do not have the same count');
-
-            }
+            throw new BadRequestException('conditions and operators do not have the same count');
 
         }
 
