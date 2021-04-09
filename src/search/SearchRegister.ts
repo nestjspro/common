@@ -38,5 +38,5 @@ export const SearchRegister = (options: SearchResponseOptions) => applyDecorator
     }),
     ApiQuery({ name: 'limit', type: Number, example: 20, required: false }),
     ApiQuery({ name: 'page', type: Number, example: 1, required: false }),
-    SearchResponseGenerator(options.type)
+    SearchResponseGenerator(options.type())
 );
