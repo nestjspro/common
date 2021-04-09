@@ -25,21 +25,24 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
         console.log(operator.length);
         console.log(condition.length > operator.length - 1);
         console.log(condition.length > (operator.length - 1));
-        if (condition.length > (operator.length - 1)) {
+
+        if (condition.length === 1 || condition.length >= operator.length) {
+
+            for (let i = 0; i < condition.length; i++) {
+
+                conditions.push({
+
+                    condition: decodeURIComponent(condition[ i ]),
+                    parameters: parameter,
+                    operator: operator[ i ]
+
+                });
+
+            }
+
+        } else {
 
             throw new BadRequestException('conditions and operators do not have the same count');
-
-        }
-
-        for (let i = 0; i < condition.length; i++) {
-
-            conditions.push({
-
-                condition: decodeURIComponent(condition[ i ]),
-                parameters: parameter,
-                operator: operator[ i ]
-
-            });
 
         }
 
