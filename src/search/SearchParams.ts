@@ -21,11 +21,6 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
 
         }
 
-        console.log(condition.length);
-        console.log(operator.length);
-        console.log(condition.length > operator.length - 1);
-        console.log(condition.length > (operator.length - 1));
-
         if (condition.length === 1 || condition.length >= operator.length) {
 
             for (let i = 0; i < condition.length; i++) {
@@ -46,7 +41,7 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
 
         }
 
-    } else {
+    } else if (condition.length > 0) {
 
         conditions.push({
 
