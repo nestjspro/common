@@ -5,7 +5,15 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
 
     const { limit = 20, page = 1, sort, direction, condition, parameter, operator } = req.query;
 
-    if (operator) {
+    const conditions: Array<SearchCondition> = [];
+
+    if (Array.isArray(condition)) {
+
+        if (condition.length > 1 && !operator) {
+
+            throw new BadRequestException('missing at least one operator');
+
+        }
 
         if (Array.isArray(operator)) {
 
@@ -17,23 +25,25 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
 
         }
 
-    }
+        for (let i = 0; i < condition.length; i++) {
 
-    if (condition.length > 1 && !operator) {
+            conditions.push({
 
-        throw new BadRequestException('missing at least one operator');
+                condition: decodeURIComponent(condition[ i ]),
+                parameters: parameter,
+                operator: operator[ i ]
 
-    }
+            });
 
-    const conditions: Array<SearchCondition> = [];
+        }
 
-    for (let i = 0; i < condition.length; i++) {
+    } else {
 
         conditions.push({
 
-            condition: decodeURIComponent(condition[ i ]),
+            condition: decodeURIComponent(condition),
             parameters: parameter,
-            operator: operator[ i ]
+            operator: operator
 
         });
 
