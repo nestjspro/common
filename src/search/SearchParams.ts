@@ -6,7 +6,7 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
     let { limit = 20, page = 1, sort, direction, condition, parameter, operator } = req.query;
 
     const conditions: Array<SearchCondition> = [];
-    
+
     if (!Array.isArray(operator)) {
 
         operator = [ operator ];
@@ -21,7 +21,11 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
 
         }
 
-        if (condition.length > operator.length - 1) {
+        console.log(condition.length);
+        console.log(operator.length);
+        console.log(condition.length > operator.length - 1);
+        console.log(condition.length > (operator.length - 1));
+        if (condition.length > (operator.length - 1)) {
 
             throw new BadRequestException('conditions and operators do not have the same count');
 
