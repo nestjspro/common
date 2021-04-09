@@ -13,43 +13,47 @@ export const SearchParams: () => ParameterDecorator = createParamDecorator((data
 
     }
 
-    if (Array.isArray(condition)) {
+    if (condition) {
 
-        if (condition.length > 1 && !operator) {
+        if (Array.isArray(condition)) {
 
-            throw new BadRequestException('missing at least one operator');
+            if (condition.length > 1 && !operator) {
 
-        }
-
-        if (condition.length === 1 || condition.length >= operator.length) {
-
-            for (let i = 0; i < condition.length; i++) {
-
-                conditions.push({
-
-                    condition: decodeURIComponent(condition[ i ]),
-                    parameters: parameter,
-                    operator: operator[ i ]
-
-                });
+                throw new BadRequestException('missing at least one operator');
 
             }
 
-        } else {
+            if (condition.length === 1 || condition.length >= operator.length) {
 
-            throw new BadRequestException('conditions and operators do not have the same count');
+                for (let i = 0; i < condition.length; i++) {
+
+                    conditions.push({
+
+                        condition: decodeURIComponent(condition[ i ]),
+                        parameters: parameter,
+                        operator: operator[ i ]
+
+                    });
+
+                }
+
+            } else {
+
+                throw new BadRequestException('conditions and operators do not have the same count');
+
+            }
+
+        } else if (condition.length > 0) {
+
+            conditions.push({
+
+                condition: decodeURIComponent(condition),
+                parameters: parameter,
+                operator: operator
+
+            });
 
         }
-
-    } else if (condition.length > 0) {
-
-        conditions.push({
-
-            condition: decodeURIComponent(condition),
-            parameters: parameter,
-            operator: operator
-
-        });
 
     }
 
