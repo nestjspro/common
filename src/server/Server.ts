@@ -1,20 +1,20 @@
-import { NestInterceptor, ValidationPipe } from '@nestjs/common';
-import { NestFactory }                     from '@nestjs/core';
-import { NestExpressApplication }          from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule }  from '@nestjs/swagger';
-import * as bodyParser                     from 'body-parser';
-import * as compression                    from 'compression';
-import * as dotenv                         from 'dotenv';
-import * as fs                             from 'fs';
-import { SwaggerSettings }                 from '../swagger/SwaggerSettings';
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
+import * as dotenv from 'dotenv';
+import * as fs from 'fs';
+import { SwaggerSettings } from '../swagger/SwaggerSettings';
 import { GlobalExceptionsFilter } from '../exceptions/GlobalExceptionsFilter';
-import * as cookieParser from 'cookie-parser'
+import * as cookieParser from 'cookie-parser';
 
 dotenv.config();
 
 export class Server {
 
-    public static async bootstrap(module: any, name: string, port: number, swagger: SwaggerSettings, origins: Array<string>, interceptors: Array<NestInterceptor>): Promise<NestExpressApplication> {
+    public static async bootstrap(module: any, name: string, port: number, swagger: SwaggerSettings, origins: Array<string>, interceptors: Array<any>): Promise<NestExpressApplication> {
 
         const app = await NestFactory.create<NestExpressApplication>(module, {
 
@@ -27,11 +27,11 @@ export class Server {
         });
 
         const documentBuilder = new DocumentBuilder().setTitle(swagger.title)
-                                                     .setContact(swagger.contactName, swagger.contactUrl, swagger.contactEmail)
-                                                     .setDescription(swagger.description)
-                                                     .setExternalDoc(swagger.docsDescription, swagger.docsUrl)
-                                                     .setVersion(swagger.version)
-                                                     .addBearerAuth();
+            .setContact(swagger.contactName, swagger.contactUrl, swagger.contactEmail)
+            .setDescription(swagger.description)
+            .setExternalDoc(swagger.docsDescription, swagger.docsUrl)
+            .setVersion(swagger.version)
+            .addBearerAuth();
 
         swagger.serverUrls.forEach(url => documentBuilder.addServer(url));
 
