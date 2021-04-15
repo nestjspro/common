@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class TransformInterceptor implements NestInterceptor {
+export class SensitiveTransformInterceptor implements NestInterceptor {
 
     private readonly boolPropertyName: string;
     private readonly properties: Array<string>;
