@@ -33,6 +33,7 @@ export class ServerConfig {
     public name: string;
     public module: any;
     public port: number;
+    public options?: any;
 
     public globalPipes?: Array<ValidationPipe> = [ new ValidationPipe({
 

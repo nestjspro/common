@@ -10,7 +10,7 @@ export class Server {
 
     public static async bootstrap(config: ServerConfig): Promise<NestExpressApplication> {
 
-        const app = await NestFactory.create<NestExpressApplication>(module);
+        const app = await NestFactory.create<NestExpressApplication>(config.module, config.options);
 
         if (config.swagger) {
 
@@ -33,29 +33,29 @@ export class Server {
 
         }
 
-        // if (config.interceptors) {
-        //
-        //     app.useGlobalInterceptors(config.interceptors);
-        //
-        // }
+        if (config.interceptors) {
 
-        // if (config.globalPipes) {
-        //
-        //     app.useGlobalPipes(...config.globalPipes);
-        //
-        // }
-        //
-        // if (config.exceptionFilters) {
-        //
-        //     app.useGlobalFilters(...config.exceptionFilters);
-        //
-        // }
-        //
-        // if (config.middlewares) {
-        //
-        //     config.middlewares.forEach(middleware => app.use(middleware));
-        //
-        // }
+            app.useGlobalInterceptors(...config.interceptors);
+
+        }
+
+        if (config.globalPipes) {
+
+            app.useGlobalPipes(...config.globalPipes);
+
+        }
+
+        if (config.exceptionFilters) {
+
+            app.useGlobalFilters(...config.exceptionFilters);
+
+        }
+
+        if (config.middlewares) {
+
+            config.middlewares.forEach(middleware => app.use(middleware));
+
+        }
 
         app.disable('x-powered-by');
 
