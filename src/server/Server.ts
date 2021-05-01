@@ -53,7 +53,7 @@ export class Server {
 
         if (config.middlewares) {
 
-            config.middlewares.forEach(middleware => app.use(middleware));
+            app.use(...config.middlewares);
 
         }
 
