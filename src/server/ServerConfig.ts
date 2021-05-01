@@ -2,7 +2,7 @@ import * as cookieParser from 'cookie-parser';
 import * as compression from 'compression';
 import * as bodyParser from 'body-parser';
 import { SwaggerSettings } from '../swagger/SwaggerSettings';
-import { ExceptionFilter, ValidationPipe } from '@nestjs/common';
+import { ExceptionFilter, ValidationPipe, NestInterceptor } from '@nestjs/common';
 import { GlobalExceptionsFilter } from '../exceptions/GlobalExceptionsFilter';
 
 export const middlewaresPlain = () => {
@@ -41,7 +41,7 @@ export class ServerConfig {
 
     }) ];
     public exceptionFilters?: Array<ExceptionFilter> = [ new GlobalExceptionsFilter() ];
-    public interceptors?: Array<any>;
+    public interceptors?: Array<NestInterceptor>;
     public middlewares?: Array<any> = middlewaresJson();
     public origins?: Array<string>;
     public swagger?: SwaggerSettings;

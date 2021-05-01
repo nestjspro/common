@@ -33,11 +33,11 @@ export class Server {
 
         }
 
-        if (config.interceptors) {
-
-            app.useGlobalInterceptors(...config.interceptors);
-
-        }
+        // if (config.interceptors) {
+        //
+        //     app.useGlobalInterceptors(config.interceptors);
+        //
+        // }
 
         // if (config.globalPipes) {
         //
