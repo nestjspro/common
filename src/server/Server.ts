@@ -10,7 +10,7 @@ export class Server {
 
     public static async bootstrap(config: ServerConfig): Promise<NestExpressApplication> {
 
-        const app = await NestFactory.create<NestExpressApplication>(module, config.origins ? { cors: { origin: config.origins } } : null);
+        const app = await NestFactory.create<NestExpressApplication>(module);
 
         if (config.swagger) {
 
