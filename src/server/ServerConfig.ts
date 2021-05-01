@@ -5,28 +5,20 @@ import { SwaggerSettings } from '../swagger/SwaggerSettings';
 import { ExceptionFilter, ValidationPipe, NestInterceptor } from '@nestjs/common';
 import { GlobalExceptionsFilter } from '../exceptions/GlobalExceptionsFilter';
 
-export const middlewaresPlain = () => {
+export const middlewaresPlain = [
 
-    return [
+    compression
 
-        compression
+];
 
-    ];
+export const middlewaresJson = [
 
-};
+    compression,
+    cookieParser,
+    bodyParser.json(),
+    bodyParser.urlencoded({ type: 'application/x-www-form-urlencoded', extended: true })
 
-export const middlewaresJson = () => {
-
-    return [
-
-        compression,
-        cookieParser,
-        bodyParser.json(),
-        bodyParser.urlencoded({ type: 'application/x-www-form-urlencoded', extended: true })
-
-    ];
-
-};
+];
 
 export class ServerConfig {
 
