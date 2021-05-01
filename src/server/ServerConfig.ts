@@ -30,17 +30,17 @@ export const middlewaresJson = () => {
 
 export class ServerConfig {
 
-    public module: any;
     public name: string;
+    public module: any;
     public port: number;
 
-    public globalPipes: Array<ValidationPipe> = [ new ValidationPipe({
+    public globalPipes?: Array<ValidationPipe> = [ new ValidationPipe({
 
         transform: true,
         forbidUnknownValues: true
 
     }) ];
-    public exceptionFilters: Array<ExceptionFilter> = [ new GlobalExceptionsFilter() ];
+    public exceptionFilters?: Array<ExceptionFilter> = [ new GlobalExceptionsFilter() ];
     public interceptors?: Array<any>;
     public middlewares?: Array<any> = middlewaresJson();
     public origins?: Array<string>;
