@@ -39,23 +39,23 @@ export class Server {
 
         }
 
-        if (config.globalPipes) {
-
-            app.useGlobalPipes(...config.globalPipes);
-
-        }
-
-        if (config.exceptionFilters) {
-
-            app.useGlobalFilters(...config.exceptionFilters);
-
-        }
-
-        if (config.middlewares) {
-
-            config.middlewares.forEach(middleware => app.use(middleware));
-
-        }
+        // if (config.globalPipes) {
+        //
+        //     app.useGlobalPipes(...config.globalPipes);
+        //
+        // }
+        //
+        // if (config.exceptionFilters) {
+        //
+        //     app.useGlobalFilters(...config.exceptionFilters);
+        //
+        // }
+        //
+        // if (config.middlewares) {
+        //
+        //     config.middlewares.forEach(middleware => app.use(middleware));
+        //
+        // }
 
         app.disable('x-powered-by');
 
