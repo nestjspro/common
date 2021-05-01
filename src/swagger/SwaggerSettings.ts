@@ -6,7 +6,7 @@ export class SwaggerSettings {
     public title: string;
     public description: string;
     public version: string;
-    public tags: any;
+    public tags?: any;
     public contactName: string;
     public contactUrl: string;
     public contactEmail: string;

@@ -1,94 +1,69 @@
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as bodyParser from 'body-parser';
-import * as compression from 'compression';
 import * as dotenv from 'dotenv';
-import * as fs from 'fs';
-import { SwaggerSettings } from '../swagger/SwaggerSettings';
-import { GlobalExceptionsFilter } from '../exceptions/GlobalExceptionsFilter';
-import * as cookieParser from 'cookie-parser';
+import { ServerConfig } from './ServerConfig';
 
 dotenv.config();
 
 export class Server {
 
-    public static async bootstrap(module: any, name: string, port: number, swagger: SwaggerSettings, origins: Array<string>, interceptors: Array<any>): Promise<NestExpressApplication> {
+    public static async bootstrap(config: ServerConfig): Promise<NestExpressApplication> {
 
-        const app = await NestFactory.create<NestExpressApplication>(module, {
+        const app = await NestFactory.create<NestExpressApplication>(module, config.origins ? { cors: { origin: config.origins } } : null);
 
-            cors: {
+        if (config.swagger) {
 
-                origin: origins
+            const documentBuilder = new DocumentBuilder().setTitle(config.swagger.title)
+                .setContact(config.swagger.contactName, config.swagger.contactUrl, config.swagger.contactEmail)
+                .setDescription(config.swagger.description)
+                .setExternalDoc(config.swagger.docsDescription, config.swagger.docsUrl)
+                .setVersion(config.swagger.version)
+                .addBearerAuth();
 
-            }
+            config.swagger.serverUrls.forEach(url => documentBuilder.addServer(url));
 
-        });
+            Object.keys(config.swagger.tags).forEach(key => {
 
-        const documentBuilder = new DocumentBuilder().setTitle(swagger.title)
-            .setContact(swagger.contactName, swagger.contactUrl, swagger.contactEmail)
-            .setDescription(swagger.description)
-            .setExternalDoc(swagger.docsDescription, swagger.docsUrl)
-            .setVersion(swagger.version)
-            .addBearerAuth();
+                documentBuilder.addTag(key, config.swagger.tags[ key ]);
 
-        swagger.serverUrls.forEach(url => documentBuilder.addServer(url));
+            });
 
-        Object.keys(swagger.tags).forEach(key => {
-
-            documentBuilder.addTag(key, swagger.tags[ key ]);
-
-        });
-
-        SwaggerModule.setup(swagger.path, app, SwaggerModule.createDocument(app, documentBuilder.build(), swagger.documentOptions), swagger.customOptions);
-
-        if (interceptors) {
-
-            app.useGlobalInterceptors(...interceptors);
+            SwaggerModule.setup(config.swagger.path, app, SwaggerModule.createDocument(app, documentBuilder.build(), config.swagger.documentOptions), config.swagger.customOptions);
 
         }
 
-        app.useGlobalPipes(new ValidationPipe({
-            transform: true,
-            forbidUnknownValues: true
-        }));
+        if (config.interceptors) {
 
-        app.useGlobalFilters(new GlobalExceptionsFilter());
-        app.use(cookieParser());
-        app.use(compression());
-        app.use(bodyParser.json({ limit: '50mb' }));
-        app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+            app.useGlobalInterceptors(...config.interceptors);
+
+        }
+
+        if (config.globalPipes) {
+
+            app.useGlobalPipes(...config.globalPipes);
+
+        }
+
+        if (config.exceptionFilters) {
+
+            app.useGlobalFilters(...config.exceptionFilters);
+
+        }
+
+        if (config.middlewares) {
+
+            config.middlewares.forEach(middleware => app.use(middleware));
+
+        }
 
         app.disable('x-powered-by');
 
-        await app.listen(port);
+        await app.listen(config.port);
 
-        console.log(`${ new Date().toISOString() } ${ name } server started on port ${ port }`);
+        console.log(`${ new Date().toISOString() } ${ name } server started on port ${ config.port }`);
 
         return app;
-
-    }
-
-    public static getEnvironment(): 'local' | 'docker' | 'k8' {
-
-        if (fs.existsSync('/proc/1/cgroup')) {
-
-            const contents = fs.readFileSync('/proc/1/cgroup');
-
-            if (contents.indexOf('docker') > -1) {
-
-                return 'docker';
-
-            } else if (contents.indexOf('kube') > -1) {
-
-                return 'k8';
-
-            }
-
-        }
-
-        return 'local';
 
     }
 
