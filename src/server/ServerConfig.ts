@@ -7,7 +7,7 @@ import { GlobalExceptionsFilter } from '../exceptions/GlobalExceptionsFilter';
 
 export const middlewaresPlain = [
 
-    compression
+    compression()
 
 ];
 
