@@ -35,7 +35,7 @@ export class ServerConfig {
     }) ];
     public exceptionFilters?: Array<ExceptionFilter> = [ new GlobalExceptionsFilter() ];
     public interceptors?: Array<NestInterceptor>;
-    public middlewares?: Array<any> = middlewaresJson();
+    public middlewares?: Array<any> = middlewaresJson;
     public origins?: Array<string>;
     public swagger?: SwaggerSettings;
 
