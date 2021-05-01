@@ -61,7 +61,7 @@ export class Server {
 
         await app.listen(config.port);
 
-        console.log(`${ new Date().toISOString() } ${ name } server started on port ${ config.port }`);
+        console.log(`${ new Date().toISOString() } ${ config.name } server started on port ${ config.port }`);
 
         return app;
 
