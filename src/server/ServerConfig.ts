@@ -13,8 +13,8 @@ export const middlewaresPlain = [
 
 export const middlewaresJson = [
 
-    compression,
-    cookieParser,
+    compression(),
+    cookieParser(),
     bodyParser.json(),
     bodyParser.urlencoded({ type: 'application/x-www-form-urlencoded', extended: true })
 
