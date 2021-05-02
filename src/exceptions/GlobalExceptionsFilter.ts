@@ -42,6 +42,10 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
             response.sendStatus(exception.status);
 
+        } else if (clazz === 'EntityNotFound') {
+
+            response.sendStatus(HttpStatus.NOT_FOUND);
+
         } else if (clazz === 'ResourceAlreadyExistsException') {
 
             response.sendStatus(exception.status);
@@ -57,6 +61,10 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
         } else if (exception.status) {
 
             response.sendStatus(exception.status);
+
+        } else {
+
+            response.sendStatus(500);
 
         }
 
