@@ -1,19 +1,23 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
-import { Request, Response }                                 from 'express';
+import { Request, Response } from 'express';
 
 @Catch()
 export class GlobalExceptionsFilter implements ExceptionFilter {
 
     public catch(exception: any, host: ArgumentsHost): void {
 
-        console.error(`GlobalExceptionsFilter.catch(): ${ JSON.stringify(exception) }`);
 
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
         const clazz = exception.constructor.name;
 
-        console.error(`GlobalExceptionsFilter.catch(): class name = ${ clazz }`);
+        if (process.env.DEBUG) {
+
+            console.error(`GlobalExceptionsFilter.catch(): ${ JSON.stringify(exception) }`);
+            console.error(`GlobalExceptionsFilter.catch(): class name = ${ clazz }`);
+
+        }
 
         if (clazz === 'UnauthorizedException') {
 
@@ -28,37 +32,35 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
         } else if (clazz === 'BadRequestException') {
 
-            response.status(400).json(exception[ 'response' ]);
+            response.status(400);
 
         } else if (clazz === 'ResourceNotFoundException') {
 
-            response.status(exception.status).json(exception);
+            response.status(exception.status);
 
         } else if (clazz === 'ResourceForbiddenException') {
 
-            response.status(exception.status).json(exception);
+            response.status(exception.status);
 
         } else if (clazz === 'ResourceAlreadyExistsException') {
 
-            response.status(exception.status).json(exception);
+            response.status(exception.status);
 
         } else if (clazz === 'QueryFailedError') {
 
             if (exception.message.indexOf('duplicate key') >= -1) {
 
-                response.status(HttpStatus.CONFLICT).json({ message: 'a similar record already exists' });
+                response.status(HttpStatus.CONFLICT);
 
             }
 
-        } else if(exception.status) {
+        } else if (exception.status) {
 
-            response.status(exception.status).json(exception);
+            response.status(exception.status);
 
         } else {
 
-            console.log(exception);
-
-            response.status(500).json('something went wrong! our support team has been notified. please try again later :(');
+            response.status(500);
 
         }
 
