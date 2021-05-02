@@ -8,8 +8,8 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
 
         const ctx = host.switchToHttp();
-        const response = ctx.getResponse<Response>();
-        const request = ctx.getRequest<Request>();
+        const response: Response = ctx.getResponse<Response>();
+        const request: Request = ctx.getRequest<Request>();
         const clazz = exception.constructor.name;
 
         if (process.env.DEBUG) {
@@ -32,35 +32,35 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
         } else if (clazz === 'BadRequestException') {
 
-            response.status(400);
+            response.sendStatus(400);
 
         } else if (clazz === 'ResourceNotFoundException') {
 
-            response.status(exception.status);
+            response.sendStatus(exception.status);
 
         } else if (clazz === 'ResourceForbiddenException') {
 
-            response.status(exception.status);
+            response.sendStatus(exception.status);
 
         } else if (clazz === 'ResourceAlreadyExistsException') {
 
-            response.status(exception.status);
+            response.sendStatus(exception.status);
 
         } else if (clazz === 'QueryFailedError') {
 
             if (exception.message.indexOf('duplicate key') >= -1) {
 
-                response.status(HttpStatus.CONFLICT);
+                response.sendStatus(HttpStatus.CONFLICT);
 
             }
 
         } else if (exception.status) {
 
-            response.status(exception.status);
+            response.sendStatus(exception.status);
 
         } else {
 
-            response.status(500);
+            response.sendStatus(500);
 
         }
 
