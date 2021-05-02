@@ -42,7 +42,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
             response.sendStatus(exception.status);
 
-        } else if (clazz === 'EntityNotFound') {
+        } else if (clazz === 'EntityNotFoundError') {
 
             response.sendStatus(HttpStatus.NOT_FOUND);
 
