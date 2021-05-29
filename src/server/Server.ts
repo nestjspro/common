@@ -12,6 +12,13 @@ export class Server {
 
         const app = await NestFactory.create<NestExpressApplication>(config.module, config.options);
 
+        if (config.cors) {
+
+            app.enableCors(config.cors);
+
+
+        }
+
         if (config.swagger) {
 
             const documentBuilder = new DocumentBuilder().setTitle(config.swagger.title)

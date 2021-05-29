@@ -26,6 +26,7 @@ export class ServerConfig {
     public module: any;
     public port: number;
     public options?: any;
+    public cors?: any;
 
     public globalPipes?: Array<ValidationPipe> = [ new ValidationPipe({
 
