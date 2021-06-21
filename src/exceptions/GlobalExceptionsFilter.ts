@@ -53,7 +53,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
         } else if (exception.status) {
 
-            response.sendStatus(exception.status);
+            response.status(exception.status);
 
         }
 
