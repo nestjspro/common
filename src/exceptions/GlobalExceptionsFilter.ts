@@ -21,14 +21,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
         if (clazz === 'UnauthorizedException') {
 
-            response.status(401).json({
-
-                statusCode: exception.status,
-                timestamp: new Date().toISOString(),
-                path: request.url,
-                response: exception.response
-
-            });
+            response.sendStatus(401);
 
         } else if (clazz === 'BadRequestException') {
 
