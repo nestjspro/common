@@ -55,10 +55,6 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
 
             response.sendStatus(exception.status);
 
-        } else {
-
-            response.sendStatus(500);
-
         }
 
     }
