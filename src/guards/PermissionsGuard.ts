@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Reflector }                                 from '@nestjs/core';
-import { Request, Response }                         from 'express';
+import { Reflector } from '@nestjs/core';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
@@ -30,7 +30,7 @@ export class PermissionsGuard implements CanActivate {
 
         }
 
-        response.status(403).json({ message: 'Forbidden resource' });
+        response.sendStatus(403);
 
     }
 
