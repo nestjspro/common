@@ -3,6 +3,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 import { ServerConfig } from './ServerConfig';
+import { Transport } from '@nestjs/microservices';
 
 dotenv.config();
 
@@ -61,6 +62,28 @@ export class Server {
         if (config.middlewares) {
 
             app.use(...config.middlewares);
+
+        }
+
+        if (process.env.RABBITMQ_URI && process.env.RABBITMQ_QUEUE) {
+
+            app.connectMicroservice({
+
+                transport: Transport.RMQ,
+                options: {
+
+                    urls: [ process.env.RABBITMQ_URI ],
+                    queue: process.env.RABBITMQ_QUEUE,
+                    prefetchCount: 1,
+                    queueOptions: {
+
+                        durable: true
+
+                    }
+
+                }
+
+            });
 
         }
 
