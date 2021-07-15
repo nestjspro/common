@@ -33,14 +33,14 @@ export class Server {
                     description: 'JWT Token',
                     in: 'header'
 
-                }).addApiKey({
+                }, 'jwt').addApiKey({
 
                     type: 'apiKey',
                     name: 'apiKey',
                     description: 'API key',
                     in: 'header'
 
-                });
+                }, 'key');
 
             config.swagger.serverUrls.forEach(url => documentBuilder.addServer(url));
 
