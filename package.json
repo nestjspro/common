@@ -22,6 +22,7 @@
         "amqp-connection-manager": "^3.2.0",
         "amqplib": "^0.5.5",
         "body-parser": "^1.19.0",
+        "chalk": "^4.1.1",
         "compression": "^1.7.4",
         "cookie-parser": "^1.4.5",
         "dotenv": "^8.2.0",

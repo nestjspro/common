@@ -26,7 +26,14 @@ export class Server {
                 .setDescription(config.swagger.description)
                 .setExternalDoc(config.swagger.docsDescription, config.swagger.docsUrl)
                 .setVersion(config.swagger.version)
-                .addBearerAuth();
+                .addBearerAuth().addBearerAuth({
+
+                    type: 'apiKey',
+                    name: 'apiKey',
+                    description: 'API key',
+                    in: 'header'
+
+                });
 
             config.swagger.serverUrls.forEach(url => documentBuilder.addServer(url));
 
