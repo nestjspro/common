@@ -33,7 +33,7 @@ export class Server {
                     description: 'JWT Token',
                     in: 'header'
 
-                }).addBearerAuth({
+                }).addApiKey({
 
                     type: 'apiKey',
                     name: 'apiKey',
