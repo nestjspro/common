@@ -26,7 +26,14 @@ export class Server {
                 .setDescription(config.swagger.description)
                 .setExternalDoc(config.swagger.docsDescription, config.swagger.docsUrl)
                 .setVersion(config.swagger.version)
-                .addBearerAuth().addBearerAuth({
+                .addBearerAuth({
+
+                    type: 'http',
+                    name: 'Bearer',
+                    description: 'JWT Token',
+                    in: 'header'
+
+                }).addBearerAuth({
 
                     type: 'apiKey',
                     name: 'apiKey',
