@@ -1,8 +1,9 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 import { ServerConfig } from './ServerConfig';
+import { ClassSerializerInterceptor } from '@nestjs/common';
 
 dotenv.config();
 
@@ -56,7 +57,7 @@ export class Server {
 
         if (config.interceptors) {
 
-            app.useGlobalInterceptors(...config.interceptors);
+            app.useGlobalInterceptors(...config.interceptors, new ClassSerializerInterceptor(app.get(Reflector)));
 
         }
 
