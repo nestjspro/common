@@ -3,7 +3,7 @@ import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from
 @Injectable()
 export class ParseDatePipe implements PipeTransform<string> {
 
-    public transform(value: string, metadata: ArgumentMetadata): any {
+    public transform(value: string, metadata: ArgumentMetadata): Date {
 
         const date = new Date(value);
 
