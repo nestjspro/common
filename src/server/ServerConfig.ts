@@ -27,6 +27,7 @@ export class ServerConfig {
     public port: number;
     public options?: any;
     public cors?: any;
+    public upload?: { limit: string };
 
     public globalPipes?: Array<ValidationPipe> = [ new ValidationPipe({
 

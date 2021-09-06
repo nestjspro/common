@@ -3,6 +3,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 import { ServerConfig } from './ServerConfig';
+import * as bodyParser from 'body-parser';
 
 dotenv.config();
 
@@ -54,6 +55,13 @@ export class Server {
 
         }
 
+        if (config.upload) {
+
+            app.use(bodyParser.json({ limit: config.upload.limit }));
+            app.use(bodyParser.urlencoded({ limit: config.upload.limit, extended: true }));
+
+        }
+        
         if (config.interceptors) {
 
             app.useGlobalInterceptors(...config.interceptors);
