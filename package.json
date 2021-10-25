@@ -10,14 +10,6 @@
         "release": "npm version patch && rm -rf dist && tsc && npm publish --access=public"
     },
     "dependencies": {
-        "@nestjs-plus/rabbitmq": "^1.4.4",
-        "@nestjs/common": "^8.1.2",
-        "@nestjs/core": "^8.1.2",
-        "@nestjs/jwt": "^8.0.0",
-        "@nestjs/microservices": "^8.1.2",
-        "@nestjs/platform-express": "^8.1.2",
-        "@nestjs/swagger": "^5.1.4",
-        "@nestjs/typeorm": "^8.0.2",
         "@sendgrid/mail": "^7.5.0",
         "amqp-connection-manager": "^3.7.0",
         "amqplib": "^0.8.0",
@@ -30,6 +22,16 @@
         "stripe": "^8.184.0",
         "swagger-ui-express": "^4.1.6",
         "typeorm": "^0.2.38"
+    },
+    "peerDependencies": {
+        "@nestjs-plus/rabbitmq": "^1.4.4",
+        "@nestjs/common": "^8.1.2",
+        "@nestjs/core": "^8.1.2",
+        "@nestjs/jwt": "^8.0.0",
+        "@nestjs/microservices": "^8.1.2",
+        "@nestjs/platform-express": "^8.1.2",
+        "@nestjs/swagger": "^5.1.4",
+        "@nestjs/typeorm": "^8.0.2"
     },
     "devDependencies": {
         "@types/stripe": "^8.0.416"
