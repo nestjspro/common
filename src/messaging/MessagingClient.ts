@@ -1,7 +1,6 @@
-import { AmqpConnection }  from '@nestjs-plus/rabbitmq';
-import { Injectable }      from '@nestjs/common';
-import { Options }         from 'amqplib';
-import { MessagingMethod } from './MessagingMethod';
+import { AmqpConnection } from '@nestjs-plus/rabbitmq';
+import { Injectable } from '@nestjs/common';
+import { Options } from 'amqplib';
 
 @Injectable()
 export class MessagingClient {
@@ -16,7 +15,7 @@ export class MessagingClient {
 
     }
 
-    public rpc<S,T>(exchange: string, routingKey: string, payload: S, timeout: number = 10000): Promise<T> {
+    public rpc<S, T>(exchange: string, routingKey: string, payload: S, timeout: number = 10000): Promise<T> {
 
         return this.ampqConnection.request({
 
