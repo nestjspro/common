@@ -16,5 +16,12 @@ export class SwaggerSettings {
     public documentOptions?: SwaggerDocumentOptions;
     public customOptions?: SwaggerCustomOptions;
 
+    public authentication?: {
+        
+        endpoints: Array<string>,
+        users: {[ key: string ]: string}
+    
+    };
+
 }
 
