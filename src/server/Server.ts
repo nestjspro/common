@@ -25,7 +25,7 @@ export class Server {
 
             if (config.swagger.authentication) {
     
-                app.use([...config.swagger.authentication.endpoints], basicAuth({
+                app.use(config.swagger.authentication.endpoints, basicAuth({
                 
                     challenge: true,
                     users: {
