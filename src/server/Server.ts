@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 import { ServerConfig } from './ServerConfig';
 import * as bodyParser from 'body-parser';
+import * as basicAuth from 'express-basic-auth';
 
 dotenv.config();
 
@@ -20,6 +21,21 @@ export class Server {
         }
 
         if (config.swagger) {
+
+            if (config.swagger.authentication) {
+    
+                app.use(config.swagger.authentication.endpoints, basicAuth({
+                
+                    challenge: true,
+                    users: {
+                        
+                        ...config.swagger.authentication.users
+        
+                    }
+        
+                }));
+    
+            }
 
             const documentBuilder = new DocumentBuilder().setTitle(config.swagger.title)
                                                          .setContact(config.swagger.contactName, config.swagger.contactUrl, config.swagger.contactEmail)
