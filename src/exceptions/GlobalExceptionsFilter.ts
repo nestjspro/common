@@ -1,15 +1,13 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 @Catch()
 export class GlobalExceptionsFilter implements ExceptionFilter {
 
     public catch(exception: any, host: ArgumentsHost): void {
 
-
         const ctx = host.switchToHttp();
         const response: Response = ctx.getResponse<Response>();
-        const request: Request = ctx.getRequest<Request>();
         const clazz = exception.constructor.name;
 
         if (process.env.DEBUG) {
