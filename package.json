@@ -10,6 +10,7 @@
         "release": "npm version patch && rm -rf dist && tsc && npm publish --access=public"
     },
     "dependencies": {
+        "@nestjs/common": "^8.2.5",
         "@sendgrid/mail": "^7.5.0",
         "amqp-connection-manager": "^3.7.0",
         "amqplib": "^0.8.0",
