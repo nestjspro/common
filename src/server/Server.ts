@@ -18,7 +18,6 @@ export class Server {
 
             app.enableCors(config.cors);
 
-
         }
 
         if (config.swagger) {
@@ -39,18 +38,18 @@ export class Server {
             }
 
             const documentBuilder = new DocumentBuilder().setTitle(config.swagger.title)
-                .setContact(config.swagger.contactName, config.swagger.contactUrl, config.swagger.contactEmail)
-                .setDescription(config.swagger.description)
-                .setExternalDoc(config.swagger.docsDescription, config.swagger.docsUrl)
-                .setVersion(config.swagger.version)
-                .addBearerAuth({
+                                                         .setContact(config.swagger.contactName, config.swagger.contactUrl, config.swagger.contactEmail)
+                                                         .setDescription(config.swagger.description)
+                                                         .setExternalDoc(config.swagger.docsDescription, config.swagger.docsUrl)
+                                                         .setVersion(config.swagger.version)
+                                                         .addBearerAuth({
 
-                    type: 'http',
-                    name: 'Bearer',
-                    description: 'JWT Token',
-                    in: 'header'
+                                                             type: 'http',
+                                                             name: 'Bearer',
+                                                             description: 'JWT Token',
+                                                             in: 'header'
 
-                }, 'jwt').addApiKey({
+                                                         }, 'jwt').addApiKey({
 
                     type: 'apiKey',
                     name: 'apiKey',
@@ -77,7 +76,7 @@ export class Server {
             app.use(bodyParser.urlencoded({ limit: config.upload.limit, extended: true }));
 
         }
-        
+
         if (config.interceptors) {
 
             app.useGlobalInterceptors(...config.interceptors);
