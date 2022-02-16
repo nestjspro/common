@@ -48,6 +48,10 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
                 response.sendStatus(HttpStatus.CONFLICT);
 
             }
+            
+        } else if (exception.status) {
+
+            response.sendStatus(exception.status);
 
         } else {
 
