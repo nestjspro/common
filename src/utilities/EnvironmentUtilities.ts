@@ -8,14 +8,14 @@ export class EnvironmentUtilities {
 
             const contents = fs.readFileSync('/proc/1/cgroup');
 
-            if (contents.indexOf('docker') > -1) {
-
-                return 'docker';
-
-            } else if (contents.indexOf('kube') > -1) {
+            if (contents.indexOf('kube') > -1) {
 
                 return 'k8';
 
+            } else {
+
+                return 'docker';
+                
             }
 
         }
