@@ -5,11 +5,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
  * such as a database record when creating entities.
  */
 export class ResourceAlreadyExistsException extends HttpException {
-
     public constructor(message?: any) {
-
         super(message, HttpStatus.CONFLICT);
-
     }
-
 }

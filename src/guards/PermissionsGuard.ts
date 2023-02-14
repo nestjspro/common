@@ -4,34 +4,29 @@ import { Request, Response } from 'express';
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
-
-    public constructor(private readonly reflector: Reflector) {
-
-    }
+    public constructor(private readonly reflector: Reflector) {}
 
     public canActivate(context: ExecutionContext): boolean {
-
-        const requiredPermissions = this.reflector.get<string[]>('permissions', context.getHandler());
+        const requiredPermissions = this.reflector.get<string[]>(
+            'permissions',
+            context.getHandler()
+        );
         const ctx = context.switchToHttp();
         const request = ctx.getRequest<Request>();
         const response = ctx.getResponse<Response>();
 
         for (let i = 0; i < requiredPermissions.length; i++) {
-
-            for (let j = 0; j < request[ 'principal' ].roles.length; j++) {
-
-                if (request[ 'principal' ].roles[ j ].permissions.find(permission => permission.name === requiredPermissions[ i ])) {
-
+            for (let j = 0; j < request['principal'].roles.length; j++) {
+                if (
+                    request['principal'].roles[j].permissions.find(
+                        permission => permission.name === requiredPermissions[i]
+                    )
+                ) {
                     return true;
-
                 }
-
             }
-
         }
 
         response.sendStatus(403);
-
     }
-
 }

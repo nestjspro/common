@@ -4,28 +4,28 @@ import { Options } from 'amqplib';
 
 @Injectable()
 export class MessagingClient {
+    public constructor(public readonly ampqConnection: AmqpConnection) {}
 
-    public constructor(public readonly ampqConnection: AmqpConnection) {
-
-    }
-
-    public publish<T>(exchange: string, routingKey: string, payload: T, options?: Options.Publish): void {
-
+    public publish<T>(
+        exchange: string,
+        routingKey: string,
+        payload: T,
+        options?: Options.Publish
+    ): void {
         this.ampqConnection.publish(exchange, routingKey, payload, options);
-
     }
 
-    public rpc<S, T>(exchange: string, routingKey: string, payload: S, timeout: number = 10000): Promise<T> {
-
+    public rpc<S, T>(
+        exchange: string,
+        routingKey: string,
+        payload: S,
+        timeout: number = 10000
+    ): Promise<T> {
         return this.ampqConnection.request({
-
             exchange,
             routingKey,
             payload,
             timeout
-
         });
-
     }
-
 }

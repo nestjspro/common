@@ -1,7 +1,6 @@
 import { SwaggerCustomOptions, SwaggerDocumentOptions } from '@nestjs/swagger';
 
 export class SwaggerSettings {
-
     public path: string;
     public title: string;
     public description: string;
@@ -17,11 +16,7 @@ export class SwaggerSettings {
     public customOptions?: SwaggerCustomOptions;
 
     public authentication?: {
-        
-        endpoints: Array<string>,
-        users: {[ key: string ]: string}
-    
+        endpoints: Array<string>;
+        users: { [key: string]: string };
     };
-
 }
-

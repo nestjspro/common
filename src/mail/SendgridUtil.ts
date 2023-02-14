@@ -1,15 +1,16 @@
 import * as sendgrid from '@sendgrid/mail';
-import * as dotenv   from 'dotenv';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
 export class SendgridUtil {
-
-    public static send(to: string, from: string, templateId: string, dynamicTemplateData: { [ key: string ]: string }): void {
-
+    public static send(
+        to: string,
+        from: string,
+        templateId: string,
+        dynamicTemplateData: { [key: string]: string }
+    ): void {
         sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
         sendgrid.send({ to, from, templateId, dynamicTemplateData });
-
     }
-
 }
